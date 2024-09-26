@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação de Rankeadas</title>
+    <style>
+        body {
+          background-color: rgb(2, 2, 58);
+          color: white;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          font-family: Arial, sans-serif;
+          margin: 20px;
+          transition: background-color 0.5s; /* Suaviza a transição de cor */
+        }
+        label {
+          display: block;
+          margin: 10px 0 5px;
+        }
+        input {
+          padding: 8px;
+          width: 200px;
+        }
+        button {
+          margin-top: 10px;
+          padding: 10px 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Classificação de Rankeadas</h1>
+    
+    <label for="nome">Nome do Jogador:</label>
+    <input type="text" id="nome" placeholder="Digite seu nome">
+
+    <label for="vitorias">Quantidade de Vitórias:</label>
+    <input type="number" id="vitorias" placeholder="Digite suas vitórias">
+
+    <label for="derrotas">Quantidade de Derrotas:</label>
+    <input type="number" id="derrotas" placeholder="Digite suas derrotas">
+
+    <button id="calcular">Calcular Nível</button>
+
+    <h2 id="resultado"></h2>
+
+    <script>
+        // Funções
+        function balanceVictoryDefeat(v, d) {
+            return v - d; // Calcula o saldo com vitórias e derrotas
+        }
+
+        function getLevel(b) {
+            // Estruturas de decisões
+            if (b <= 10) return "Ferro";
+            if (b <= 20) return "Bronze";
+            if (b <= 50) return "Prata";
+            if (b <= 80) return "Ouro";
+            if (b <= 90) return "Diamante";
+            if (b <= 100) return "Lendário";
+            return "Imortal";
+        }
+
+        document.getElementById('calcular').addEventListener('click', function() {
+            let nome = document.getElementById('nome').value;
+            let vitorias = parseInt(document.getElementById('vitorias').value);
+            let derrotas = parseInt(document.getElementById('derrotas').value);
+
+            // Calcula o saldo com as vitórias e derrotas
+            let balance = balanceVictoryDefeat(vitorias, derrotas);
+            let nivel = getLevel(balance);
+
+            // Exibe o resultado
+            document.getElementById('resultado').innerText = `O Herói ${nome} tem de saldo ${balance} e está no nível de ${nivel}.`;
+        });
+    </script>
+</body>
+</html>
+
